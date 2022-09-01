@@ -1,0 +1,78 @@
+﻿@inject IStringLocalizer<ManagementController> L
+@{
+    ViewData["Title"] =L["page.title"] ; 
+}
+
+ <div class="row">
+   
+
+     <div class="col-xl-4">
+         <div class="card card-xl-stretch mb-xl-8">
+    <div class="card-header ribbon ribbon-end">
+        <div class="ribbon-label bg-primary">@L["page.BadgeTitle"]</div>
+        <div class="card-title">@L["page.Cardtitle"]</div>
+    </div>
+
+    <div class="card-body">
+
+        <form id="formMakeRoleRequest" 
+            data-ajax-method="post" 
+            data-ajax-complete="fncFormSubmitted" 
+            data-ajax="true"
+            asp-action="AddNewRole" 
+            asp-controller="Management" 
+            asp-antiforgery="true">
+
+            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                <label class="d-flex align-items-center fs-6 fw-bold mb-2" for="roleName">
+				 <span class="required">@L["page.roleName"]</span>
+					 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="@L["page.rolePopup"]" aria-label="@L["page.rolePopup"]"></i>
+		    	</label>
+                                
+                   @(Html.Kendo().TextBox()
+                        .Name("roleName") 
+                        .HtmlAttributes(new { style = "width: 100%"})
+                        )
+ 
+            </div>
+
+
+            <div class="text-right">
+							 
+								<button type="submit"  class="btn btn-success btn-hover-rise me-5">
+                                  <i class="fa fa-save"></i>@L["page.saveButton"]
+                                </button>
+									 
+							 
+							</div>
+
+        </form>
+     
+    </div>
+</div>
+     </div>
+
+     <div class="col-xl-8">
+         @await Component.InvokeAsync("KayitliRollerVC")
+     </div>
+     
+</div>
+ 
+
+ @section Scripts {
+                            
+<script>
+    function onDataBound(e) {
+    this.tbody.find('tr').each(function (idx) {
+        eval($(this).find('script').html())
+    })
+}
+removeRole = (e) => {
+      e.preventDefault(); 
+   
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+    console.log(dataItem);
+}
+
+</script>
+                        }

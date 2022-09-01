@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TubimProject.Domain.Entities.Tpds
+{
+    public class KT_KURUMLAR
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+    }
+}

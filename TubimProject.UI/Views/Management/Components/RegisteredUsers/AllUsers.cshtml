@@ -1,0 +1,31 @@
+﻿@inject IStringLocalizer<KayitliKullanicilarVC> L
+ 
+
+  
+         @(Html.Kendo().Grid<AddNewUser>()
+    .Name("grdAllUsers")
+    .Columns(columns => {
+     
+        columns.Bound(p => p.UserName).Title(L["grid.username"]); 
+        columns.Bound(p => p.Unvan).Title(L["grid.unvan"]); 
+        columns.Bound(p => p.KurumDaire).Title(L["grid.kurum"]); 
+        columns.Bound(p => p.PhoneNumber).Title(L["grid.departmentPhone"]); 
+        columns.Bound(p => p.CepTel).Title(L["grid.MobilePhone"]); 
+        
+
+    })
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .Filterable()
+    .HtmlAttributes(new { style = "height:430px;" })
+    .Events(ev=>ev.DataBound("onDataBound").Change("onChange"))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Read(read => read.Action("GetUsers", "Management"))
+     ))
+
+
+ 
+ 

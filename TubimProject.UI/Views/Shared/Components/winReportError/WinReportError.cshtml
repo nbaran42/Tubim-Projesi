@@ -1,0 +1,67 @@
+﻿@inject IStringLocalizer<winReportError> L
+@model ReportErrorAddModel
+@{
+    var username = TempData["username"] as string;
+}
+
+
+
+<form autocomplete="off"
+      data-ajax-method="post"
+      data-ajax-complete="Completed"
+      data-ajax="true"
+      asp-action="CreateCrashReport"
+      asp-controller="Logs"
+      asp-antiforgery="true"
+      class="form fv-plugins-bootstrap5 fv-plugins-framework"
+      id="reportErrorForm" >
+
+    <!--begin::Heading-->
+    <div class="text-center mb-10">
+        <!--begin::Title-->
+        <h1 id="hWelcome" class="text-dark mb-3"> @L["page.title"]</h1>
+        <!--end::Title-->
+
+    </div>
+    <!--begin::Heading-->
+    <!--begin::Input group-->
+    <div class="fv-row mb-7 fv-plugins-icon-container">
+        <!--begin::Label-->
+        <label class="d-flex align-items-center fs-6 fw-bold mb-2">@L["page.username"]</label>
+        <!--end::Label-->
+        <!--begin::Input-->
+        <input asp-for="Username" class="form-control form-control-flush text-gray-900 text-hover-primary fs-2 fw-bolder me-1" style="width:100%;" type="text" autocomplete="off" />
+
+        <!--end::Input-->
+    </div>
+    <!--end::Input group-->
+    <!--begin::Input group-->
+    <div class="fv-row mb-10">
+        <!--begin::Wrapper-->
+        <div class="d-flex flex-stack mb-2">
+            <!--begin::Label-->
+            <label class="form-label fw-bolder text-dark fs-6 mb-0">@L["page.errordescription"]</label>
+            <!--end::Label-->
+
+        </div>
+        <!--end::Wrapper-->
+        <!--begin::Input-->
+        <textarea asp-for="ErrorDescription" style="width:100%;" rows="4" cols="3" placeholder="@L["page.textarea"]" class="form-control form-control-solid" type="text" autocomplete="off"></textarea>
+        <!--end::Input-->
+    </div>
+    <!--end::Input group-->
+    <!--begin::Actions-->
+    <div class="fv-row mb-7 fv-plugins-icon-container text-center">
+        <!--begin::Submit button-->
+        <button type="submit" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger w-100">
+            <span class="indicator-label">@L["page.enter"]</span>
+        </button>
+        <!--end::Submit button-->
+
+    </div>
+</form>
+
+
+
+
+ 

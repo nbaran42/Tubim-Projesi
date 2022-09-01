@@ -1,0 +1,27 @@
+﻿@model List<OlayChartDashboardQueryResponse>
+
+
+
+      @(Html.Kendo().Chart(Model)
+        .Name("chartOlaylar")
+        .Series(series =>
+        {
+            series
+                .Column(model => model.Value, categoryExpression: model => model.Date)
+                .Aggregate(ChartSeriesAggregate.Avg);
+
+        })
+        .CategoryAxis(axis => axis
+            .Date()
+            .BaseUnit(ChartAxisBaseUnit.Fit)
+            .MajorGridLines(lines => lines.Visible(true))
+        )
+        .ValueAxis(axis => axis
+            .Numeric()
+            .Line(line => line.Visible(true)
+            .Color("red")
+            .DashType(ChartDashType.DashDot)
+            
+        ).Color("blue")
+        .Crosshair(r=>r.Color("blue")))
+    )

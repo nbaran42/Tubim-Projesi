@@ -1,0 +1,131 @@
+﻿@inject IStringLocalizer<ManagementController> L
+@model AddNewUser
+@{
+    ViewData["Title"] = L["user.title"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+
+    <div class="col-xl-4">
+        <div class="card card-xl-stretch mb-xl-8">
+            <div class="card-header ribbon ribbon-end">
+                <div class="ribbon-label bg-warning">@L["user.BadgeTitle"]</div>
+                <div class="card-title">@L["user.Cardtitle"]</div>
+            </div>
+
+            <div class="card-body">
+
+                <form id="formAddUser"
+                      data-ajax-method="post"
+                      data-ajax-complete="fncFormSubmitted"
+                      data-ajax="true"
+                      asp-action="CreateUser"
+                      asp-controller="Management"
+                      asp-antiforgery="true">
+
+                    <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" asp-for="UserName">
+                            <span class="required">@L["user.username"]</span>
+                        </label>
+                        @(Html.Kendo().TextBoxFor(r=>r.UserName).HtmlAttributes(new { style = "width: 100%" }) )
+                    </div>
+
+                    <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" asp-for="Email">
+                            <span class="required">@L["user.email"]</span>
+                        </label>
+                        @(Html.Kendo().TextBoxFor(r=>r.Email).HtmlAttributes(new { style = "width: 100%" }) )
+                    </div>
+
+                    <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" asp-for="CepTel">
+                            <span class="required">@L["user.mobilephonenumber"]</span>
+                        </label>
+                        @(Html.Kendo().TextBoxFor(r=>r.CepTel).HtmlAttributes(new { style = "width: 100%" }) )
+                    </div>
+                    <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" asp-for="PhoneNumber">
+                            <span class="required">@L["user.kurumphonenumber"]</span>
+                        </label>
+                        @(Html.Kendo().TextBoxFor(r=>r.PhoneNumber).HtmlAttributes(new { style = "width: 100%" }) )
+                    </div>
+                    <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" asp-for="KurumDaire">
+                            <span class="required">@L["user.KurumDaire"]</span>
+                        </label>
+                        @(Html.Kendo().TextBoxFor(r=>r.KurumDaire).HtmlAttributes(new { style = "width: 100%" }) )
+                    </div>
+                    <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" asp-for="Unvan">
+                            <span class="required">@L["user.unvan"]</span>
+                        </label>
+                        @(Html.Kendo().TextBoxFor(r=>r.Unvan).HtmlAttributes(new { style = "width: 100%"}) )
+                    </div>
+                    <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" asp-for="Unvan">
+                            <span class="required">@L["user.kurumid"]</span>
+                        </label>
+                        @(Html.Kendo().DropDownListFor(r=>r.KurumId)
+
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .OptionLabel("Seçim Yapınız")
+                        .HtmlAttributes(new {width="100%"})
+                        .DataSource(source =>
+                        {
+                        source.Read(read =>
+                        {
+                        read.Action("getKurumList", "Management");
+                        });
+                        }))
+                    </div>
+                    <div class="text-right">
+                        @(Html.Kendo().Button()
+                        .Name("btnSubmit")
+                        .HtmlAttributes(new {type="submit",@class="k-primary"})
+                        .Content("<span class='k-icon k-i-checkmark' title='Refresh'></span>" + @L["page.saveButton"]))
+
+
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-8">
+        <div class="card card-flush shadow-sm">
+            <div class="card-header">
+                <h3 class="card-title">@L["page.registeredusers"]</h3>
+
+            </div>
+            <div class="card-body py-5">
+                @await Component.InvokeAsync("RegisteredUsers")
+            </div>
+            <div class="card-footer">
+                @L["page.registeredUsersExclamations"]
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <script>
+
+        removeRole = (e) => {
+            e.preventDefault();
+
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            console.log(dataItem);
+        }
+
+    </script>
+ }            

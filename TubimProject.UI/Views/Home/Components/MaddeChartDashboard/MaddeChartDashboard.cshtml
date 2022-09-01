@@ -1,0 +1,68 @@
+﻿@model List<MaddeChartDashboardQueryResponse>
+
+
+
+
+
+<div class="row">
+    <div class="col-xl-6">
+
+        <div class="card card-xl-stretch mb-5 mb-xl-8">
+            <!--begin::Header-->
+            <div class="card-header justify-content-end ribbon ribbon-start">
+                <div class="ribbon-label bg-danger">EGM Verisi</div>
+                <div class="card-title">Madde Türüne Göre Grafikler</div>
+                <div class="card-toolbar">
+
+                    @(Html.Kendo().DropDownList()
+                    .Name("drpMaddeler")
+                    .DataTextField("Name")
+                    .DataValueField("Id")
+                    .OptionLabel("Seçim Yapınız")
+                    .SelectedIndex(0)
+                    .DataSource(source =>
+                    {
+                    source.Read(read =>
+                    {
+                    read.Action("getMaddeTurleri", "Home");
+                    });
+                    })
+                    .HtmlAttributes(new { style = "width: 100%" })
+                    )
+
+                </div>
+            </div>
+            <!--end::Header-->
+            <!--begin::Body-->
+            <div class="card-body pt-5">
+
+
+
+                @(Html.Kendo().Chart(Model)
+                .Name("chartMaddeler")
+                .Series(series =>
+                {
+                series
+                .Column(model => model.Value, categoryExpression: model => model.Date)
+                .Aggregate(ChartSeriesAggregate.Avg)
+                .Tooltip(r=>r.Template("#= dataItem.Value # #= dataItem.MassType # #= dataItem.MassName #"));})
+                .CategoryAxis(axis => axis
+                .Date()
+                .BaseUnit(ChartAxisBaseUnit.Fit)
+                .MajorGridLines(lines => lines.Visible(true)))
+                .ValueAxis(axis => axis
+                .Numeric()
+                .Line(line => line.Visible(true)
+                .Color("red")
+                .DashType(ChartDashType.LongDash)).Color("blue")
+                .Crosshair(r=>r.Color("blue")))
+                .Tooltip(t => t
+                .Visible(true)
+                .AutoHide(true)))
+            </div>
+            <!--end::Body-->
+        </div>
+    </div>
+    <div class="col-xl-6">
+    </div>
+</div>

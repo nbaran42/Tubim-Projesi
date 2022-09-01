@@ -1,0 +1,109 @@
+﻿@inject IStringLocalizer<ManagementController> L
+@model AddNewUser
+@{
+    ViewData["Title"] = L["userrole.title"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+
+
+    <div class="card card-xl-stretch mb-xl-8">
+        <div class="card-header ribbon ribbon-end">
+            <div class="ribbon-label bg-warning">@L["userrole.BadgeTitle"]</div>
+            <div class="card-title">@L["userrole.Cardtitle"]</div>
+        </div>
+
+        <div class="card-body">
+
+            @await Component.InvokeAsync("KayitliKullanicilarVC")
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+@(Html.Kendo().Window()
+.Name("window")
+.Title("")
+.Content(@L["page.loading"])
+.Draggable(true)
+.Visible(false)
+.Resizable(r=>r.Enabled(false))
+.Size("500")
+.Pinned(true))
+
+@section Scripts {
+
+    <script>
+ 
+        removeRole = (e) => {
+            e.preventDefault();
+
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            console.log(dataItem);
+        }
+
+
+        drpIslemChange = (e) => {
+            var selectedRow = JSON.parse(localStorage.getItem("selected"));
+
+            debugger
+            switch (e.dataItem.Id) {
+
+                case 1:
+                    WindowOpen("@Html.Raw(L["page.windowTitle"])", "/management/getEditUserRolesWindow?username=" + selectedRow.UserName);
+                    break;
+            }
+
+
+
+        }
+
+    </script>
+
+    <script type="text/kendo-tmpl" id="drpTemplate">
+        <span class='k-icon k-i-select-box'></span> &nbsp @Html.Raw(L["userroles.selectLabel"])
+    </script>
+    <script type="text/kendo-tmpl" id="template">
+        @(Html.Kendo().DropDownList()
+    .Name("dd_#=UserName#")
+    .DataTextField("Name")
+    .DataValueField("Id")
+    .OptionLabel(new { Name = "SEÇİM YAP", Id = -1 })
+    .OptionLabelTemplateId("drpTemplate")
+    .HtmlAttributes(new {width="100%"})
+    .Events(r =>
+    {
+        r.Select("drpIslemChange");
+    })
+    .DataSource(source =>
+    {
+        source.Read(read =>
+        {
+            read.Action("GetUserRolesStatusItems", "Management");
+        });
+    })
+    .ToClientTemplate())
+    </script>
+
+
+    <script>
+RemoveRole = (e) => {
+    debugger
+    var s = e.dataset;
+    $.ajax({
+        url:"@Url.Action("RemoveRoleOfUser","Management")?username="+s.user+"&roleName="+s.rolename,
+        type:"POST",
+        success: function() {
+            fncFormSubmitted();
+        }
+    })
+}
+    </script>
+ }            

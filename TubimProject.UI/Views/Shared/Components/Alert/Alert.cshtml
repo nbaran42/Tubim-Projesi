@@ -1,0 +1,18 @@
+﻿@model AlertViewModel
+<!--begin::Alert-->
+<div class="alert alert-@Model.AlertType">
+    <!--begin::Icon-->
+    <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">...</span>
+    <!--end::Icon-->
+
+    <!--begin::Wrapper-->
+    <div class="d-flex flex-column">
+        <!--begin::Title-->
+        <h4 class="mb-1 text-dark">@Model.Title</h4>
+        <!--end::Title-->
+        <!--begin::Content-->
+        <span>@Model.Content</span>
+        <!--end::Content-->
+    </div>
+    <!--end::Wrapper-->
+</div>

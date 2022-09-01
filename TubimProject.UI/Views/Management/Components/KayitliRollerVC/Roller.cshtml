@@ -1,0 +1,37 @@
+﻿@inject IStringLocalizer<KayitliRollerVC> L
+ 
+
+    <div class="card card-xl-stretch mb-xl-8">
+    <div class="card-header ribbon ribbon-end">
+      
+        <div class="card-title">@L["page.RegisteredRoles"]</div>
+    </div>
+
+    <div class="card-body">
+
+         @(Html.Kendo().Grid<RolesViewModel>()
+    .Name("grdRoller")
+    .Columns(columns => {
+     @*   columns.Command(command => command.Custom(L["page.RemoveRole"]).Click("removeRole")).Width(150);*@
+        columns.Bound(p => p.RoleName); 
+    })
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .Filterable()
+    .HtmlAttributes(new { style = "height:430px;" })
+    .Events(ev=>ev.DataBound("onDataBound"))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Read(read => read.Action("GetRoles", "Management"))
+     )
+)
+
+     
+    </div>
+</div>
+
+ 
+
+ 
