@@ -1,0 +1,70 @@
+﻿@model List<OlayChartDashboardQueryResponse>
+@inject IStringLocalizer<OlayChartDashboard> L
+
+<div class="row">
+    <!--begin::Col-->
+    <div class="col-xl-9">
+        @(Html.Kendo().Chart(Model)
+        .Name("chartSupheliler")
+        .Series(series =>
+        {
+        series
+        .Column(model => model.Value, categoryExpression: model => model.Date)
+        .Aggregate(ChartSeriesAggregate.Avg);
+
+        })
+        .CategoryAxis(axis => axis
+        .Date()
+        .BaseUnit(ChartAxisBaseUnit.Years)
+        .MajorGridLines(lines => lines.Visible(false))
+        .Title(r=>r.Text(L["chartCategoryAxis"]))
+        )
+        .ValueAxis(axis => axis
+        .MajorUnit(1)
+        .Numeric()
+        
+        .Title(r=>r.Text(L["chartValueAxis"]))
+        .Line(line => line.Visible(false)
+        .DashType(ChartDashType.Solid))))
+    </div>
+
+
+    <div class="col-xl-3">
+        <div class="configurator">
+
+            <div class="box-col">
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <input id="baseUnitAuto" name="baseUnit"
+                               type="radio" value="" autocomplete="off" />
+                        <label for="baseUnitAuto"> @L["page.filter.olay.graphic.automatic"]</label>
+                    </li>
+                    <li class="list-group-item">
+                        <input id="baseUnitYears" name="baseUnit"
+                               type="radio" value="years" autocomplete="off" />
+                        <label for="baseUnitYears">@L["page.filter.olay.graphic.years"]</label>
+                    </li>
+                    <li class="list-group-item">
+                        <input id="baseUnitMonths" name="baseUnit"
+                               type="radio" value="months" autocomplete="off" />
+                        <label for="baseUnitMonths">@L["page.filter.olay.graphic.months"]</label>
+                    </li>
+                    <li class="list-group-item">
+                        <input id="baseUnitWeeks" name="baseUnit"
+                               type="radio" value="weeks" checked="checked" autocomplete="off" />
+                        <label for="baseUnitWeeks">@L["page.filter.olay.graphic.weeks"]</label>
+                    </li>
+                    <li class="list-group-item">
+                        <input id="baseUnitDays" name="baseUnit"
+                               type="radio" value="days" autocomplete="off" />
+                        <label for="baseUnitDays">@L["page.filter.olay.graphic.days"]</label>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

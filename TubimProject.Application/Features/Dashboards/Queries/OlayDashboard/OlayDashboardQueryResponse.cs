@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using TubimProject.Application.Features.Madde.Queries.GetAllMaddeQuery;
 using TubimProject.Application.Features.Olay.Queries.GetAllOlaylar;
 using TubimProject.Application.Features.OlayDetay.Queries.GetAllOlayDetaysQuery;
+using TubimProject.Application.Features.Supheli.Queries.GetSonSupheliQuery;
 
-namespace TubimProject.Application.Features.DashboardOlay.Queries.OlayDashboard
+namespace TubimProject.Application.Features.Dashboards.Queries.OlayDashboard
 {
     public class OlayDashboardQueryResponse
     {
@@ -21,5 +22,6 @@ namespace TubimProject.Application.Features.DashboardOlay.Queries.OlayDashboard
         public List<GetAllOlaysQueryResponse>? Olaylar { get; set; }
         public List<GetAllOlayDetaysQueryResponse>? OlayDetaylar { get; set; }
         public List<GetAllMaddeQueryResponse>? Maddeler { get; set; }
+        public List<GetSupheliQueryResponse>? Supheliler { get; set; }
     }
 }

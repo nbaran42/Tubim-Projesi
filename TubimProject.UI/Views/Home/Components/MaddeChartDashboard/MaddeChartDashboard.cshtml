@@ -4,14 +4,12 @@
 
 
 
-<div class="row">
-    <div class="col-xl-6">
-
-        <div class="card card-xl-stretch mb-5 mb-xl-8">
+ 
+        <div class="card card-xl-stretch">
             <!--begin::Header-->
             <div class="card-header justify-content-end ribbon ribbon-start">
                 <div class="ribbon-label bg-danger">EGM Verisi</div>
-                <div class="card-title">Madde Türüne Göre Grafikler</div>
+             
                 <div class="card-toolbar">
 
                     @(Html.Kendo().DropDownList()
@@ -48,13 +46,13 @@
                 .Tooltip(r=>r.Template("#= dataItem.Value # #= dataItem.MassType # #= dataItem.MassName #"));})
                 .CategoryAxis(axis => axis
                 .Date()
-                .BaseUnit(ChartAxisBaseUnit.Fit)
+                .BaseUnit(ChartAxisBaseUnit.Years)
                 .MajorGridLines(lines => lines.Visible(true)))
                 .ValueAxis(axis => axis
                 .Numeric()
                 .Line(line => line.Visible(true)
                 .Color("red")
-                .DashType(ChartDashType.LongDash)).Color("blue")
+                 )
                 .Crosshair(r=>r.Color("blue")))
                 .Tooltip(t => t
                 .Visible(true)
@@ -62,7 +60,4 @@
             </div>
             <!--end::Body-->
         </div>
-    </div>
-    <div class="col-xl-6">
-    </div>
-</div>
+ 

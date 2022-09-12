@@ -14,6 +14,7 @@ using Hangfire;
 using HangfireBasicAuthenticationFilter;
 using TubimProject.UI.Jobs.Implementations;
 using TubimProject.Application.Interfaces.Job;
+using TubimProject.Infrastructure.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IApiResourceHttpClient, ApiResourceHttpClient>();
 builder.Services.AddTransient<IAuthenticatedUserService, AuthenticatedUserService>();
 builder.Services.AddScoped<IRecurringJonManager, TubimProject.UI.Services.RecurringJobManager>();
+builder.Services.AddSignalR();
 builder.Services.AddKendo();
 builder.Services.AddLocalization();
 builder.Services.AddPersistenceContexts(builder.Configuration);
@@ -85,6 +87,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapHangfireDashboard();
+    endpoints.MapHub<UpdateDashboardHubClient>("/tubimHub");
 });
 IConfiguration _configuration = new ConfigurationBuilder()
                             .AddJsonFile("appsettings.json")

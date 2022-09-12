@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TubimProject.Application.Features.DashboardOlay.Queries.MaddeChartDashboard.Queries;
-using TubimProject.Application.Features.DashboardOlay.Queries.OlayChartDashboard;
-using TubimProject.Application.Features.DashboardOlay.Queries.OlayDashboard;
+using TubimProject.Application.Features.Dashboards.Queries.MaddeChartDashboard.Queries;
+using TubimProject.Application.Features.Dashboards.Queries.OlayChartDashboard;
+using TubimProject.Application.Features.Dashboards.Queries.OlayDashboard;
 using TubimProject.Application.Features.KodTables.Command.Queries.GetMaddeTurleri;
 using TubimProject.Application.Interfaces.Cache;
 using TubimProject.UI.Jobs.Implementations;
@@ -21,13 +21,10 @@ namespace TubimProject.UI.ViewComponents.Modules.DashBoards.MaddeChartDashboard
         }
         public async Task<IViewComponentResult> InvokeAsync(DateTime? t1, DateTime? t2, string maddeAdi)
         {
+
+          
             var cacheData = _cacheService.GetData<OlayDashboardQueryResponse>("olaydashboard");
-            if (cacheData==null)
-            {
-                var s = new SetOlayCacheJob(_mediator, _cacheService);
-                await s.Execute();
-                cacheData=_cacheService.GetData<OlayDashboardQueryResponse>("olaydashboard");
-            }
+          
 
             var turleri = await _mediator.Send(new GetMaddeTurleriQuery());
 

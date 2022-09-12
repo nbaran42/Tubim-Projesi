@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TubimProject.Application.Interfaces.Cache;
 
-namespace TubimProject.Application.Features.DashboardOlay.Queries.OlayDashboard
+namespace TubimProject.Application.Features.Dashboards.Queries.OlayDashboard
 {
     public class OlayDashboardQuery : IRequest<Result<OlayDashboardQueryResponse>>
     {

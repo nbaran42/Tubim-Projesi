@@ -15,6 +15,7 @@ using TubimProject.Application.Features.Olay.Command;
 using TubimProject.Application.Features.Olay.Queries.GetAllOlaylar;
 using TubimProject.Application.Features.Olay.Queries.GetSonOlay;
 using TubimProject.Application.Features.OlayDetay.Command;
+using TubimProject.Application.Features.Supheli.Queries.GetSonSupheliQuery;
 using TubimProject.Application.Interfaces.Job;
 using TubimProject.Application.Interfaces.Repositories;
 using TubimProject.Application.Interfaces.Repositories.Modules.OlayModule;
@@ -225,9 +226,23 @@ MaddeService:
 
 
             #region Şüpheli Service
-//            var Supheliler = _serviceContext.GetServiceData<JSahisBilgisi>(sonMaddeId.Data, JTabloEnums.JKIP_OLAY_MALZEME_TABLOSU);
+            var sonSupheliId = await _mediator.Send(new GetSonSupheliQuery());
+            var Supheliler = _serviceContext.GetServiceData<JSahisBilgisi>(sonSupheliId.Data, JTabloEnums.JKIP_OLAY_SAHIS_BILGILERI);
+
+            if (Supheliler!=null && Supheliler.aktarilacaklarListesi.sonucKod==(int)JDurumKodEnums.KAYITYOK)
+                _logger.Warning("*** Jandarma Genel Komutanlığı Şüpheli Servisi Başarıyla Çağrıldı. Ama Yeni Kayıt Gelmedi");
 
 
+
+            if (Supheliler!=null && Supheliler.aktarilacaklarListesi.sonucKod==(int)JDurumKodEnums.KAYITVAR)
+            {
+                foreach (var supheli in Supheliler.aktarilacaklarListesi.sonucList)
+                {
+                    var olayNo = supheli.OlayNo;
+                    var supheliNo = supheli.SupheliNo;
+
+                }
+            }
             #endregion
 
             await Task.FromResult("S");

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -18,6 +19,7 @@ using TubimProject.Application.Interfaces.Repositories.Modules.OlayDetayModule;
 using TubimProject.Application.Interfaces.Repositories.Modules.OlayModule;
 using TubimProject.Application.Interfaces.Repositories.Modules.SucTanimModule;
 using TubimProject.Application.Interfaces.Repositories.Modules.SupheliModule;
+using TubimProject.Application.Interfaces.SignalR;
 using TubimProject.Infrastructure.Cache;
 using TubimProject.Infrastructure.Configuration;
 using TubimProject.Infrastructure.Repositories;
@@ -29,6 +31,7 @@ using TubimProject.Infrastructure.Repositories.Modules.OlayDetayModule;
 using TubimProject.Infrastructure.Repositories.Modules.OlayModule;
 using TubimProject.Infrastructure.Repositories.Modules.SucTanimModule;
 using TubimProject.Infrastructure.Repositories.Modules.SupheliModule;
+using TubimProject.Infrastructure.SignalR;
 
 namespace TubimProject.Infrastructure.Extensions
 {
@@ -52,16 +55,16 @@ namespace TubimProject.Infrastructure.Extensions
         {
             #region Repositories
 
-            services.AddScoped(typeof(IBaseGenericRepo<>), typeof(BaseGenericRepo<>)); 
+            services.AddScoped(typeof(IBaseGenericRepo<>), typeof(BaseGenericRepo<>));
             services.AddScoped<ISeriLogService, SerilogService>();
             services.AddScoped<ICrashReportService, CrashReportService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IOlayService, OlayService>(); 
+            services.AddScoped<IOlayService, OlayService>();
             services.AddScoped<IOlayDetayService, OlayDetayService>();
             services.AddScoped<IMaddeService, MaddeService>();
             services.AddScoped<ISucTanimService, SucTanimService>();
-            services.AddScoped<IMaddeTurleriService, MaddeTurleriService>(); 
+            services.AddScoped<IMaddeTurleriService, MaddeTurleriService>();
             services.AddScoped<IKurumlarService, KurumlarService>();
             services.AddScoped<ISupheliService, SupheliService>();
             #endregion Repositories
@@ -70,6 +73,9 @@ namespace TubimProject.Infrastructure.Extensions
             #region Caching
             services.AddScoped<ICacheService, CacheService>();
             #endregion
+
+
+       
         }
     }
 

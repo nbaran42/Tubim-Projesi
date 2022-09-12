@@ -72,7 +72,7 @@ fncFormSubmitted = (e) => {
 
 
 var blockUI = new KTBlockUI(target, {
-message:'<div class="blockui-message"><span class="spinner-border text-primary"></span> Lütfen Bekleyin...</div>',
+    message:'<div class="blockui-message"><span class="spinner-border text-primary"></span> Lütfen Bekleyin...</div>',
 });
 
 
@@ -80,7 +80,8 @@ $(document).on({
     ajaxSetup: function () {
         cache:false
     },
-    ajaxStart: function () { 
+    submit: function (e) { 
+        debugger
         blockUI.block();
     },
     ajaxStop: function () {

@@ -9,6 +9,7 @@ using TubimProject.Application.Features.Olay.Command;
 using TubimProject.Application.Features.Olay.Queries.GetAllOlaylar;
 using TubimProject.Application.Features.OlayDetay.Command;
 using TubimProject.Application.Features.OlayDetay.Queries.GetAllOlayDetaysQuery;
+using TubimProject.Application.Features.Supheli.Queries.GetSonSupheliQuery;
 using TubimProject.Domain.Entities.Tpds;
 
 namespace TubimProject.Application.Mappings
@@ -22,6 +23,8 @@ namespace TubimProject.Application.Mappings
             CreateMap<UT_OLAYDETAY, GetAllOlayDetaysQueryResponse>().ReverseMap();
             CreateMap<UT_OLAYDETAY, CreateOlayDetayKayitCommand>().ReverseMap();
             CreateMap<UT_MADDE, GetAllMaddeQueryResponse>().ReverseMap();
+            CreateMap<UT_SAHIS, GetSupheliQueryResponse>().ReverseMap();
+
         }
     }
 }

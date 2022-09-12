@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TubimProject.Application.Features.DashboardOlay.Queries.MaddeChartDashboard.Queries
+namespace TubimProject.Application.Features.Dashboards.Queries.MaddeChartDashboard.Queries
 {
     public class MaddeChartDashboardQueryResponse
     {

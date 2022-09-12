@@ -13,6 +13,7 @@
     <PackageReference Include="Audit.NET.SqlServer" Version="19.1.4" />
     <PackageReference Include="Audit.WebApi" Version="19.1.4" />
     <PackageReference Include="Bogus" Version="34.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
       <PrivateAssets>all</PrivateAssets>

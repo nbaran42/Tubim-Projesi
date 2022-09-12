@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TubimProject.Application.Features.DashboardOlay.Queries.OlayChartDashboard;
-using TubimProject.Application.Features.DashboardOlay.Queries.OlayDashboard;
-using TubimProject.Application.Features.ErrorLogs.Commands.Create;
-using TubimProject.Application.Features.ErrorLogs.Queries.GetAllLogs;
+using TubimProject.Application.DTOs.Dashboards;
+using TubimProject.Application.Features.Dashboards.Queries.OlayChartDashboard;
+using TubimProject.Application.Features.Dashboards.Queries.OlayDashboard;
 using TubimProject.Application.Features.KodTables.Command.Queries.GetMaddeTurleri;
 using TubimProject.Application.Features.Madde.Queries.GetAllMaddeQuery;
 using TubimProject.Application.Features.Olay.Queries.GetAllOlaylar;
+using TubimProject.Application.Interfaces.Cache;
 using TubimProject.UI.Models;
 
 namespace TubimProject.UI.Controllers
@@ -18,14 +18,15 @@ namespace TubimProject.UI.Controllers
     {
 
         private readonly IMediator _mediator;
-
-        public HomeController(IMediator mediator)
+        private ICacheService _cacheService;
+        public HomeController(IMediator mediator, ICacheService cacheService)
         {
 
             _mediator = mediator;
+            _cacheService = cacheService;
         }
         [Route("main/anasayfa")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -77,5 +78,40 @@ namespace TubimProject.UI.Controllers
 
             return Json(result);
         }
+
+
+        public IActionResult OlayMaddeInstutionsWidget()
+        {
+            var cacheData = _cacheService.GetData<OlayDashboardQueryResponse>("olaydashboard");
+            if (cacheData is not null)
+            {
+                OlayMaddeInsutitionWidgetModel olayMaddeInsutitionWidgetModel = new OlayMaddeInsutitionWidgetModel()
+                {
+                    OlaySayisi=cacheData.Olaylar.Count,
+                    MaddeSayisi=cacheData.Maddeler.Count
+                };
+                return ViewComponent("TumKurumlarSayilarWidget", olayMaddeInsutitionWidgetModel);
+            }
+            return ViewComponent("TumKurumlarSayilarWidget");
+
+
+        }
+        public IActionResult BlueWidget()
+        {
+            var cacheData = _cacheService.GetData<OlayDashboardQueryResponse>("olaydashboard");
+            if (cacheData is not null)
+            {
+                OlayMaddeInsutitionWidgetModel olayMaddeInsutitionWidgetModel = new OlayMaddeInsutitionWidgetModel()
+                {
+                    OlaySayisi=cacheData.Olaylar.Count,
+                    MaddeSayisi=cacheData.Maddeler.Count
+                };
+                return ViewComponent("BlueWidget", olayMaddeInsutitionWidgetModel);
+            }
+            return ViewComponent("BlueWidget");
+
+
+        }
+        
     }
 }
